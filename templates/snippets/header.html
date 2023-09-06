@@ -1,0 +1,104 @@
+{% load static %}
+{% load custom_tags %}
+<style type="text/css">
+     nav{
+        height: 80px;
+        position: fixed;
+        top: 0;
+        z-index: 9;
+    }
+
+    nav ul a,
+    nav {
+        color: #444;
+    }
+
+    nav .nav-wrapper{
+        padding-top: 5px;
+    }
+
+    .sidenav-trigger {
+      color: #DF1212;
+      margin-top: 7px !important;
+    }
+
+    .brand-logo{
+        position: relative;
+        max-height: 100px;
+    }
+
+    .brand-logo .logo_image{
+        max-height: 70px;
+        margin-top: 3%;
+    }
+
+    .active{
+        font-weight: 500;
+        color: #e61c19;
+    }
+
+    .carousel .indicators{
+
+    }
+
+    .carousel.carousel-slider .carousel-item{
+        min-height: 305px;
+    }
+
+    .carousel {
+        height: 300px;
+    }
+
+    .material-icons.link-icon{
+        padding: 8px;
+	}
+
+
+
+
+</style>
+
+<div class="">
+    <nav class="white z-depth-2 valign" role="navigation">
+        {% with request.resolver_match.url_name as url_name %}
+        <div class="nav-wrapper ml30 mr50">
+            {% with request.user|landing_page as landing_page %}
+            <a href="{% url landing_page %}" class="brand-logo">
+                <img src="{% static 'images/logo.png' %}" class="logo_image">
+            </a>
+            {% endwith %}
+            <ul class="right hide-on-med-and-down">
+                {% if request.user.is_authenticated %}
+                <li>
+                    <a class="p-2"
+                       href="{% url 'logout_user' %}">
+                        <i class="fas fa-sign-out-alt" style="font-weight: 400px; font-size: 1.1em; padding-top: 3px;"></i> Logout
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+        {% endwith %}
+    </nav>
+    {% with url_name=request.resolver_match.url_name profile=request.user.profile user=request.user %}
+    <ul id="nav-mobile" class="nav-link-section sidenav">
+        {% if request.user.is_authenticated %}
+        <li class="mt10">
+            Hello, {{request.user}}
+        </li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        {% endif %}
+    </ul>
+    {% endwith %}
+    <script type="text/javascript">
+        var elem = document.querySelector('.sidenav');
+        var instance = new M.Sidenav(elem);
+        $(document).ready(function() {
+            // $('#dropdown_trigger').dropdown();
+        });
+
+    </script>
+</div>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container center top-margin">
+    <h1 style="font-weight: 600; font-size: 1.8rem; color: #1ca866">System</h1>
+    <p style="font-weight: 300; font-size: 1.4rem;">Welcome to System</p>
+    {% if request.user.is_authenticated %}
+    Username: <b>{{request.user.username}}</b><br>
+    Email: <b>{{request.user.email}}</b><br>
+    {% endif %}
+</div>
+{% endblock content %}
